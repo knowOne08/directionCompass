@@ -11,7 +11,7 @@ function init() {
     navigator.geolocation.getCurrentPosition(locationHandler);
 
     if (!isIOS) {
-    window.addEventListener("deviceorientationabsolute", handler, true);
+        window.addEventListener("deviceorientationabsolute", handler, true);
     }
 }
 
