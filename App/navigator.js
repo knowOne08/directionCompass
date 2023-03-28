@@ -7,10 +7,11 @@ let geoLatitude = params.get('geoLatitude')
 let geoLongitude = params.get('geoLongitude')
 console.log(geoLatitude)
 console.log(geoLongitude)
-const entity = document.createElement('a-entity');
+
     // entity.setAttribute('gps-entity-place', `latitude: ${destinationLocation.location.lat}; longitude: ${destinationLocation.location.lng};`);
     document.addEventListener('DOMContentLoaded', function() {
         const scene = document.getElementById('scene')
+        const entity = document.createElement('a-entity');
         // Do something with myElement
         // entity.setAttribute('gps-entity-place', `latitude: ${latitude} ; longitude: ${longitude};`);
         entity.setAttribute('gps-entity-place', `latitude: ${geoLatitude + 0.001} ; longitude: ${geoLongitude};`);
@@ -22,7 +23,7 @@ const entity = document.createElement('a-entity');
         
         // window.location.assign("./navigator.html?currentCoords=currentLocation&destinationCoords=destinationLocation");
         console.log(entity)
-        console.log(scene)
+        // console.log(scene)
         scene.appendChild(entity);
         // alert(JSON.stringify('yash'))
     });
