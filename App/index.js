@@ -1,4 +1,5 @@
-let currentLocation, destinationLocation ;
+let currentLocation;
+let destinationLocation ;
 
 const CLG_PlACES = [
     {
@@ -63,17 +64,28 @@ const HOME_PlACES = [
 ];
 
 function setCurrentLocation(place){
-    currentLocation = HOME_PlACES[place];
+    // currentLocation = HOME_PlACES[place]; //When at home
+    currentLocation = CLG_PlACES[place]; //when at college
     // console.log(currentLocation);
     window.location.assign("./destinationLocation.html");
 }
 
 function setDestination(place){
-    destinationLocation = HOME_PlACES[place];
-    console.log(destinationLocation)
+    // destinationLocation = HOME_PlACES[place];
+    destinationLocation = CLG_PlACES[place];
+    alert(destinationLocation.name)
     window.location.assign("./navigator.html");
-    const entity = document.getElementById("entity");
-    entity.setAttribute("gps-entity-place", `latitude: ${destinationLocation.location.lat}; longitude: ${destinationLocation.location.lng}`);
-    // window.location.assign("./navigator.html?currentCoords=currentLocation&destinationCoords=destinationLocation");
     
+    const entity = document.createElement('a-entity');
+    // entity.setAttribute('gps-entity-place', `latitude: ${destinationLocation.location.lat}; longitude: ${destinationLocation.location.lng};`);
+
+    entity.setAttribute("gps-new-entity-place", `latitude: ${destinationLocation.location.lat}; longitude: ${destinationLocation.location.lng};`);
+    // entity.setAttribute("gps-new-entity-place", `latitude:23.057793; longitude: 72.663406;`);
+    entity.setAttribute('geometry', 'primitive: box; height: 1; width: 1;');
+    entity.setAttribute('material', 'color: red');
+    entity.setAttribute('scale', '20 20 20');
+    // entity.setAttribute('animation-mixer', '');
+    console.log(entity)
+    // window.location.assign("./navigator.html?currentCoords=currentLocation&destinationCoords=destinationLocation");
+    document.querySelector('a-scene').appendChild(entity);
 }
