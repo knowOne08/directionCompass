@@ -9,7 +9,7 @@ const entity = document.createElement('a-entity');
     document.addEventListener('DOMContentLoaded', function() {
         const scene = document.getElementById('scene')
         // Do something with myElement
-        entity.setAttribute('gps-new-entity-place', `latitude: ${latitude} ; longitude: ${longitude};`);
+        entity.setAttribute('gps-entity-place', `latitude: ${latitude} ; longitude: ${longitude};`);
         // entity.setAttribute("gps-new-entity-place", `latitude:23.057793; longitude: 72.663406;`);
         entity.setAttribute('geometry', 'primitive: box; height: 1; width: 1;');
         entity.setAttribute('material', 'color: red');
