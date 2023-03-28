@@ -69,31 +69,20 @@ function setCurrentLocation(place) {
   // console.log(currentLocation);
   window.location.assign("./destinationLocation.html");
 }
-
 function getGeoLocation(){
-    // let geoLatitude;
-    // let geoLongitude;
+
     navigator.geolocation.getCurrentPosition((
         function(position){
-            let geoLatitude = position.coords.latitude;
-            let geoLongitude =  position.coords.longitude;
+          let  geoLatitude = position.coords.latitude;
+          let  geoLongitude =  position.coords.longitude;
 
             const yes = confirm(`Are you near \n ${geoLatitude}\n ${geoLongitude}?`);
 
             if(yes){
-             window.location.assign('./destinationLocation.html')
+              window.location.assign(`./destinationLocation.html?geoLatitude=${geoLatitude}&geoLongitude=${geoLongitude}`)
             } else {
               window.location.assign('./currentLocation.html')
             }
         }
-    ));
-}
-
-function setDestination(place) {
-  destinationLocation = HOME_PlACES[place-1];
-  // destinationLocation = CLG_PlACES[place-1];
-  alert(destinationLocation.name);
-  window.location.assign(
-    `./navigator.html?latitude=${destinationLocation.location.lat}&longitude=${destinationLocation.location.lng}`
-  );
+  ));
 }
