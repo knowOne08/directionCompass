@@ -14,8 +14,8 @@ console.log(geoLongitude)
         const entity = document.createElement('a-entity');
         // Do something with myElement
         // entity.setAttribute('gps-entity-place', `latitude: ${latitude} ; longitude: ${longitude};`);
-        entity.setAttribute('gps-entity-place', `latitude: ${geoLatitude + 0.001} ; longitude: ${geoLongitude};`);
-        // entity.setAttribute("gps-entity-place", `latitude: 23.05760351001347; longitude: 72.66268710592351;`);
+        // entity.setAttribute('gps-entity-place', `latitude: ${geoLatitude + 0.001} ; longitude: ${geoLongitude};`);
+        entity.setAttribute("gps-entity-place", `latitude: 23.05760351001347; longitude: 72.66268710592351;`);
         entity.setAttribute('geometry', 'primitive: box; height: 1; width: 1;');
         entity.setAttribute('material', 'color: red');
         entity.setAttribute('scale', '20 20 20');
@@ -27,5 +27,7 @@ console.log(geoLongitude)
         scene.appendChild(entity);
         // alert(JSON.stringify('yash'))
     });
+
+
     
     
