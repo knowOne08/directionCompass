@@ -17,7 +17,7 @@ console.log(geoLongitude)
 
         
         // // Do something with myElement
-        // // entity.setAttribute('gps-entity-place', `latitude: ${geoLatitude + 0.001} ; longitude: ${geoLongitude};`);
+        entity.setAttribute('gps-entity-place', `latitude: ${geoLatitude + 0.001} ; longitude: ${geoLongitude};`);
         // entity.setAttribute("gps-entity-place", `latitude: 23.057793; longitude: 72.663406;`); //M-block
         // entity.setAttribute('geometry', 'primitive: cone');
         // // entity.setAttribute('position', `0 0 1  `);
