@@ -10,8 +10,8 @@ console.log(geoLongitude)
 
     // entity.setAttribute('gps-entity-place', `latitude: ${destinationLocation.location.lat}; longitude: ${destinationLocation.location.lng};`);
     document.addEventListener('DOMContentLoaded', function() {
-        const scene = document.getElementById('scene')
-        const entity = document.createElement('a-entity');
+        let scene = document.getElementById('scene')
+        let entity = document.createElement('a-entity');
         // Do something with myElement
         // entity.setAttribute('gps-entity-place', `latitude: ${latitude} ; longitude: ${longitude};`);
         entity.setAttribute('gps-entity-place', `latitude: ${geoLatitude + 0.001} ; longitude: ${geoLongitude};`);
@@ -25,6 +25,16 @@ console.log(geoLongitude)
         // window.location.assign("./navigator.html?currentCoords=currentLocation&destinationCoords=destinationLocation");
         console.log(entity)
         console.log(scene)
+
+        const destinationEntity = document.createElement('a-entity');
+        destinationEntity.setAttribute('gps-entity-place', `latitude: ${latitude} ; longitude: ${longitude};`);
+        destinationEntity.setAttribute('geometry', 'primitive: box; height: 1; width: 1;');
+        destinationEntity.setAttribute('position', '0 0 1');
+        destinationEntity.setAttribute('material', 'color: green');
+        destinationEntity.setAttribute('scale', '20 20 20');
+        
+        console.log(destinationEntity)
+        scene.appendChild(destinationEntity);
         scene.appendChild(entity);
         // alert(JSON.stringify('yash'))
     });
