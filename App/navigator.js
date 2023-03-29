@@ -18,7 +18,7 @@ console.log(geoLongitude)
         // entity.setAttribute('gps-entity-place', `latitude: ${geoLatitude + 0.001} ; longitude: ${geoLongitude};`);
         entity.setAttribute("gps-entity-place", `latitude: 23.05672052722617; longitude: 72.66345886326657;`); //M-block
         entity.setAttribute('geometry', 'primitive: box; height: 1; width: 1;');
-        entity.setAttribute('position', `23 0 72`);
+        entity.setAttribute('position', `${geoLatitude + 0.001} 0 ${geoLongitude }`);
         entity.setAttribute('material', 'color: red');
         entity.setAttribute('scale', '15 15 15');
         entity.setAttribute('animation-mixer', '');
