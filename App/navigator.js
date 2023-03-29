@@ -10,6 +10,27 @@ console.log(geoLongitude)
 
     // entity.setAttribute('gps-entity-place', `latitude: ${destinationLocation.location.lat}; longitude: ${destinationLocation.location.lng};`);
     document.addEventListener('DOMContentLoaded', function() {
+
+    
+        function calculatePosition(latitude, longitude) {
+            // convert latitude and longitude to THREE.js vector3 position
+            let phi = (90 - latitude) * Math.PI / 180;
+            let theta = (180 - longitude) * Math.PI / 180;
+        
+            let x = Math.sin(phi) * Math.cos(theta);
+            let y = Math.cos(phi);
+            let z = Math.sin(phi) * Math.sin(theta);
+        
+            // scale up the position vector
+            x *= 20;
+            y *= 20;
+            z *= 20;
+        
+            return `${x} ${y} ${z}`;
+        }
+
+        let position = calculatePosition(latitude, longitude);
+
         let scene = document.getElementById('scene')
         // let entity = document.createElement('a-entity');
         // // Do something with myElement
@@ -27,9 +48,9 @@ console.log(geoLongitude)
         console.log(scene)
 
         let destinationEntity = document.createElement('a-entity');
-        destinationEntity.setAttribute('gps-entity-place', `latitude: ${latitude} ; longitude: ${longitude};`);
+        // destinationEntity.setAttribute('gps-entity-place', `latitude: ${latitude} ; longitude: ${longitude};`);
         destinationEntity.setAttribute('geometry', 'primitive: box; height: 1; width: 1;');
-        destinationEntity.setAttribute('position', '0 0 1');
+        destinationEntity.setAttribute('position', position);
         destinationEntity.setAttribute('material', 'color: green');
         destinationEntity.setAttribute('scale', '20 20 20');
         
