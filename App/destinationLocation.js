@@ -67,8 +67,8 @@ const CLG_PlACES = [
 ];
 
 function setDestination(place) {
-    destinationLocation = HOME_PlACES[place-1];
-    // destinationLocation = CLG_PlACES[place-1];
+    // destinationLocation = HOME_PlACES[place-1];x
+    destinationLocation = CLG_PlACES[place-1];
     alert(destinationLocation.name);
     window.location.assign(
       `./navigator.html?latitude=${destinationLocation.location.lat}&longitude=${destinationLocation.location.lng}&geoLatitude=${geoLatitude}&geoLongitude=${geoLongitude}`

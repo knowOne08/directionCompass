@@ -64,8 +64,8 @@ const HOME_PlACES = [
 ];
 
 function setCurrentLocation(place) {
-  currentLocation = HOME_PlACES[place-1]; //When at home
-  // currentLocation = CLG_PlACES[place-1 ]; //when at college
+  // currentLocation = HOME_PlACES[place-1]; //When at home
+  currentLocation = CLG_PlACES[place-1 ]; //when at college
   // console.log(currentLocation);
   window.location.assign("./destinationLocation.html");
 }

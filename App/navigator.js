@@ -24,7 +24,7 @@ console.log(geoLongitude)
         // window.location.assign("./navigator.html?currentCoords=currentLocation&destinationCoords=destinationLocation");
         console.log(entity)
         // console.log(scene)
-        scene.appendChild(entity);
+        // scene.appendChild(entity);
         // alert(JSON.stringify('yash'))
     });
 
