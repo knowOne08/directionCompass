@@ -155,8 +155,9 @@ window.onload = () => {
                     
                     destinationEntity.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
-                        scene.appendChild(destinationEntity);
+                        
                     });
+                    scene.appendChild(destinationEntity);
                     console.log(destinationEntity)
                     
                 });
