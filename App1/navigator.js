@@ -103,7 +103,8 @@ window.onload = () => {
                 entity.setAttribute('material','color: red');
                 entity.setAttribute('animation-mixer', '');
                 console.log(entity)
-                scene.appendChild(entity);
+                console.log(scene)
+                // scene.appendChild(entity);
             })
     })
 }
