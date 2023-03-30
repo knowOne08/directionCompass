@@ -146,7 +146,7 @@ window.onload = () => {
                     // add place name
                     const destinationEntity = document.createElement('a-link');
                     destinationEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
-                    destinationEntity.setAttribute('title', place.name);
+                    destinationEntity.setAttribute('title', place.name + " " + getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude, desLatitude, desLongitude) + " m");
                     destinationEntity.setAttribute('scale', '15 15 15');
                     
                     destinationEntity.addEventListener('loaded', () => {
