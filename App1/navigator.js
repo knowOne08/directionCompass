@@ -158,7 +158,8 @@ window.onload = () => {
                     arrowEntity.setAttribute('geometry', 'primitive: cone;');
                     arrowEntity.setAttribute('material', 'color: red;');
                     arrowEntity.setAttribute('scale', '10 10 10');
-                    arrowEntity.setAttribute('rotation', '0 0 90');
+                    arrowEntity.setAttribute('rotation', '100 100 50');
+                    arrowEntity.setAttribute('position', '0 -1 0');
                     arrowEntity.setAttribute('look-at', '[gps-camera]');
                     scene.appendChild(arrowEntity);
                 });
