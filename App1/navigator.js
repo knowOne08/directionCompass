@@ -8,34 +8,118 @@ function loadPlaces(position) {
     // const method = 'api';
     if(method === 'static') {
         const CLG_PlACES = [
-            {
+            [{
                 name: "LIBRARY",
                 location: {
                     lat: 23.108156404203143, // add here latitude if using static data
                     lng: 72.59498734978379, // add here longitude if using static data
                 }
-            },
-            {
+            }],
+            [{
                 name: "A-block",
                 location: {
                     lat: 23.1064422997269,  // add here latitude if using static data
                     lng: 72.59575386356772, // add here longitude if using static data
                 }
-            },
-            {
+            }],
+            [{
+                name: 'B-Block',
+                location: {
+                    lat: 23.106314138973083, 
+                    lng: 72.59517487210594,
+                }
+            }],
+            [{
+                name: 'C-Block',
+                location: {
+                    lat: 23.106647330209956, 
+                    lng: 72.59487520799807
+                }
+            }],
+            [{
+                name:   'D-Block',
+                location: {
+                    lat: 23.106368217189168, 
+                    lng: 72.59453571516117
+                }
+            }],
+            [{
+                name:   'E-Block',
+                location: {
+                    lat: 23.106800842128155, 
+                    lng: 72.59430053574133
+                }
+            }],
+            [{
+                name:  'F-Block',
+                location: {
+                    lat:  23.10699970957776,
+                    lng:  72.59461347609685
+                }
+            }],
+            [{
+                name:       'G-Block',
+                location: {
+                    lat: 23.107336963042442, 
+                    lng: 72.59433642087484
+                }
+            }],
+            [{
+                name:'H-Block',
+                location: {
+                    lat: 23.107582096861673,    
+                    lng: 72.59463105154079
+                }
+            }],
+            [{
+                name:'I-Block',
+                location: {
+                    lat: 23.107204160054682,  
+                    lng: 72.59495535183923  
+                }
+            }],
+            [{
+                name:'J-Block',
+                location: {
+                    lat: 23.107495662977698,    
+                    lng: 72.59528333736667   
+                }
+            }],
+            [{
+                name: 'K-Block',
+                location: {
+                    lat:  23.107221107915564,  
+                    lng: 72.59556894273088 
+                }
+            }],
+            [{
+                name: 'L-Block',
+                location: {
+                    lat: 23.106906042864658, 
+                    lng: 72.59525294174829
+                }
+            }],
+            [{
                 name: "M-Block",
                 location: {
                     lat: 23.10796558905296, // add here latitude if using static data
                     lng:  72.59461530062512, // add here longitude if using static data
                 }
-            },
-            {
+            }],
+            [{
+                name: "N-Block",
+                location: {
+                    lat: 23.10809028417978, 
+                    lng: 72.59402622994922
+                }
+            }],
+            [{
                 name: "GTU",
                 location: {
                     lat: 23.105923398933385,  // add here latitude if using static data
                     lng: 72.59414710034639, // add here longitude if using static data
                 }
-            },
+            }],
         ]; 
 
         const HOME_PlACES = [
@@ -160,7 +244,7 @@ window.onload = () => {
                     arrowEntity.setAttribute('scale', '10 10 20');
                     arrowEntity.setAttribute('rotation', '0 0 50');
                     arrowEntity.setAttribute('position', '0 0 -1');
-                    arrowEntity.setAttribute('look-at', '[gps-camera]');
+                    // arrowEntity.setAttribute('look-at', '[gps-camera]');
                     scene.appendChild(arrowEntity);
                 });
             })
