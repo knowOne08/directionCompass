@@ -43,50 +43,48 @@ function loadplaces(postion){
         ]; 
 
         const HOME_PlACES = [
-            [ {
+            {
                  name: "FireStation",
                  url:"./assets/arrow.gltf",
                  location: {
                      lat: 23.0560196454931,  // add here latitude if using static data
                      lng: 72.66744606670677, // add here longitude if using static data
                  }
-             }],
-            [ {
+             },
+            {
                  name: "Home",
                  url:"./assets/arrow.gltf",
                  location: {
                      lat: 23.056784314414482,  // add here latitude if using static data
                      lng: 72.66345756966565, // add here longitude if using static data
                  }
-             }],
-            [ {
+             },
+            {
                  name: "Divit Hills",
                  url:"./assets/arrow.gltf",
                  location: {
                      lat: 23.05760351001347,   // add here latitude if using static data
                      lng: 72.66268710592351, // add here longitude if using static data
                  }
-             }],
-            [ {
+             },
+            {
                  name: "Shiv Residency",
                  url:"./assets/arrow.gltf",
                  location: {
                      lat: 23.057774877427374,  // add here latitude if using static data
                      lng: 72.66073728561422, // add here longitude if using static data
                  }
-             }],
+             },
          ];
          
          return Promise.resolve(HOME_PlACES[arrayIndex]);
     }
 
 }
-function setDestination(place){
-    return place - 1;
-}
 
 window.onload = () => {
 
+    console.log('here')
     return navigator.geolocation.getCurrentPosition((position) => {
 
         loadplaces(position.coords)
@@ -94,6 +92,7 @@ window.onload = () => {
                 const destinationLatitude = place.location.lat;
                 const destinationLongitude = place.location.lng;
                 const destinationName = place.name;
+                alert(place.name)
                 let scene = document.querySelector('a-scene');
                 let entity = document.createElement('a-entity');
                 // entity.setAttribute('gps-entity-place', `latitude: ${destinationLatitude}; longitude: ${destinationLongitude};`);
@@ -103,7 +102,7 @@ window.onload = () => {
                 entity.setAttribute('geometry','primitive: box');
                 entity.setAttribute('material','color: red');
                 entity.setAttribute('animation-mixer', '');
-
+                console.log(entity)
                 scene.appendChild(entity);
             })
     })
