@@ -138,11 +138,12 @@ window.onload = () => {
             return deg * (Math.PI/180)
           }
 
-        alert(`You are ${getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude, 23.0560196454931, 72.66744606670677)} meters away from your destination. Keep your phone upright and scan around you to find your destination.`);   
         // than use it to load from remote APIs some places nearby
         loadPlaces(position.coords)
             .then((places) => {
                 places.forEach((place) => {
+                    
+                    alert(`You are ${getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude, 23.0560196454931, 72.66744606670677)} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
                     let desLatitude = place.location.lat;
                     let desLongitude = place.location.lng;   
 
@@ -154,9 +155,10 @@ window.onload = () => {
                     
                     destinationEntity.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
+                        scene.appendChild(destinationEntity);
                     });
                     console.log(destinationEntity)
-                    scene.appendChild(destinationEntity);
+                    
                 });
             })
     },
