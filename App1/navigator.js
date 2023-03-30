@@ -1,12 +1,7 @@
 let queryString = window.location.search;
 let params = new URLSearchParams(queryString);
-let latitude = params.get('latitude')
-let longitude = params.get('longitude')
 
-let geoLatitude = params.get('geoLatitude')
-let geoLongitude = params.get('geoLongitude')
-console.log(geoLatitude)
-console.log(geoLongitude)
+let arrayIndex = params.get('v1');
 
 function loadplaces(postion){
     const method = 'static';
@@ -82,12 +77,34 @@ function loadplaces(postion){
              }],
          ];
          
-         return Promise.resolve(HOME_PlACES);
+         return Promise.resolve(HOME_PlACES[arrayIndex]);
     }
 
 }
+function setDestination(place){
+    return place - 1;
+}
 
+window.onload = () => {
 
+    return navigator.geolocation.getCurrentPosition((position) => {
 
-    
-    
+        loadplaces(position.coords)
+            .then((place) => {
+                const destinationLatitude = place.location.lat;
+                const destinationLongitude = place.location.lng;
+                const destinationName = place.name;
+                let scene = document.querySelector('a-scene');
+                let entity = document.createElement('a-entity');
+                // entity.setAttribute('gps-entity-place', `latitude: ${destinationLatitude}; longitude: ${destinationLongitude};`);
+                entity.setAttribute('gps-entity-place', `latitude: 23.0560196454931; longitude: 72.66744606670677;`);
+                // entity.setAttribute('gltf-model', place.url);
+                entity.setAttribute('scale','15 15 15');
+                entity.setAttribute('geometry','primitive: box');
+                entity.setAttribute('material','color: red');
+                entity.setAttribute('animation-mixer', '');
+
+                scene.appendChild(entity);
+            })
+    })
+}
