@@ -118,47 +118,47 @@ window.onload = () => {
     // first get current user location
     return navigator.geolocation.getCurrentPosition(function (position) {
 
-        // function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+        function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
 
-        //     console.log(lat1, lon1, lat2, lon2)
-        //     const R = 6371; // Radius of the earth in km
-        //     const dLat = deg2rad(lat2-lat1); // deg2rad below
-        //     const dLon = deg2rad(lon2-lon1); 
-        //     const a = 
-        //       Math.sin(dLat/2) * Math.sin(dLat/2) +
-        //       Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-        //       Math.sin(dLon/2) * Math.sin(dLon/2)
-        //       ; 
-        //     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-        //     const d = R * c; // Distance in km
-        //     return Math.round(d*1000); //converting to  meters
-        //   }
+            console.log(lat1, lon1, lat2, lon2)
+            const R = 6371; // Radius of the earth in km
+            const dLat = deg2rad(lat2-lat1); // deg2rad below
+            const dLon = deg2rad(lon2-lon1); 
+            const a = 
+              Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+              Math.sin(dLon/2) * Math.sin(dLon/2)
+              ; 
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            const d = R * c; // Distance in km
+            return Math.round(d*1000); //converting to  meters
+          }
           
-        //   function deg2rad(deg) {
-        //     return deg * (Math.PI/180)
-        //   }
+          function deg2rad(deg) {
+            return deg * (Math.PI/180)
+          }
 
         // than use it to load from remote APIs some places nearby
         loadPlaces(position.coords)
             .then((places) => {
                 places.forEach((place) => {
                     
-                    // alert(`You are ${getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude, 23.0560196454931, 72.66744606670677)} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
-                    let desLatitude = place.location.lat;
-                    let desLongitude = place.location.lng;   
+                    alert(`You are ${getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude, 23.0560196454931, 72.66744606670677)} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
+                    const desLatitude = place.location.lat;
+                    const desLongitude = place.location.lng;   
 
+                    console.log(desLatitude, desLongitude)
                     // add place name
-                    let destinationEntity = document.createElement('a-link');
+                    const destinationEntity = document.createElement('a-link');
                     destinationEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
                     destinationEntity.setAttribute('title', place.name);
                     destinationEntity.setAttribute('scale', '15 15 15');
                     
                     destinationEntity.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
-                        
                     });
-                    scene.appendChild(destinationEntity);
                     console.log(destinationEntity)
+                    scene.appendChild(destinationEntity);
                     
                 });
             })
