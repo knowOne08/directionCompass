@@ -1,12 +1,12 @@
-let queryString = window.location.search;
-let params = new URLSearchParams(queryString);
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const arrayIndex = urlParams.get('v1');
 
-let arrayIndex = params.get('v1');
-
-function loadplaces(postion){
+// getting places from APIs
+function loadPlaces(position) {
     const method = 'static';
     // const method = 'api';
-    if (method === 'static') {
+    if(method === 'static') {
         const CLG_PlACES = [
             {
                 name: "LIBRARY",
@@ -43,68 +43,125 @@ function loadplaces(postion){
         ]; 
 
         const HOME_PlACES = [
-            {
+            [{
                  name: "FireStation",
                  url:"./assets/arrow.gltf",
                  location: {
                      lat: 23.0560196454931,  // add here latitude if using static data
                      lng: 72.66744606670677, // add here longitude if using static data
                  }
-             },
-            {
+             }],
+            [{
                  name: "Home",
                  url:"./assets/arrow.gltf",
                  location: {
                      lat: 23.056784314414482,  // add here latitude if using static data
                      lng: 72.66345756966565, // add here longitude if using static data
                  }
-             },
-            {
+             }],
+            [{
                  name: "Divit Hills",
                  url:"./assets/arrow.gltf",
                  location: {
                      lat: 23.05760351001347,   // add here latitude if using static data
                      lng: 72.66268710592351, // add here longitude if using static data
                  }
-             },
-            {
+             }],
+            [{
                  name: "Shiv Residency",
                  url:"./assets/arrow.gltf",
                  location: {
                      lat: 23.057774877427374,  // add here latitude if using static data
                      lng: 72.66073728561422, // add here longitude if using static data
                  }
-             },
+             }],
          ];
          
          return Promise.resolve(HOME_PlACES[arrayIndex]);
     }
+    else if(method === 'api') {
+        const params = {
+            radius: 300,    // search places not farther than this value (in meters)
+            clientId: '<your-client-id>',
+            clientSecret: '<your-client-secret>',
+            version: '20300101',    // foursquare versioning, required but unuseful for this demo
+        };
+    
+        // CORS Proxy to avoid CORS problems
+        const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+    
+        // Foursquare API (limit param: number of maximum places to fetch)
+        const endpoint = `${corsProxy}https://api.foursquare.com/v2/venues/search?intent=checkin
+            &ll=${position.latitude},${position.longitude}
+            &radius=${params.radius}
+            &client_id=${params.clientId}
+            &client_secret=${params.clientSecret}
+            &limit=30 
+            &v=${params.version}`;
+        return fetch(endpoint)
+            .then((res) => {
+                return res.json()
+                    .then((resp) => {
+                        return resp.response.venues;
+                    })
+            })
+            .catch((err) => {
+                console.error('Error with places API', err);
+            })
+    }
+};
 
-}
 
 window.onload = () => {
+    const scene = document.querySelector('a-scene');
 
-    console.log('here')
-    return navigator.geolocation.getCurrentPosition((position) => {
+    // first get current user location
+    return navigator.geolocation.getCurrentPosition(function (position) {
 
-        loadplaces(position.coords)
-            .then((place) => {
-                const destinationLatitude = place.location.lat;
-                const destinationLongitude = place.location.lng;
-                const destinationName = place.name;
-                alert(place.name)
-                let scene = document.querySelector('a-scene');
-                let entity = document.createElement('a-entity');
-                // entity.setAttribute('gps-entity-place', `latitude: ${destinationLatitude}; longitude: ${destinationLongitude};`);
-                entity.setAttribute('gps-entity-place', `latitude: 23.0560196454931; longitude: 72.66744606670677;`);
-                // entity.setAttribute('gltf-model', place.url);
-                entity.setAttribute('scale','15 15 15');
-                entity.setAttribute('geometry','primitive: box');
-                entity.setAttribute('material','color: red');
-                entity.setAttribute('animation-mixer', '');
-                console.log(entity)
-                console.log(scene)
-                // scene.appendChild(entity);
+        function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of the earth in km
+            const dLat = deg2rad(lat2-lat1); // deg2rad below
+            const dLon = deg2rad(lon2-lon1); 
+            const a = 
+              Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+              Math.sin(dLon/2) * Math.sin(dLon/2)
+              ; 
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            const d = R * c; // Distance in km
+            return Math.round(d*1000); //converting to  meters
+          }
+          
+          function deg2rad(deg) {
+            return deg * (Math.PI/180)
+          }
+
+        // than use it to load from remote APIs some places nearby
+        loadPlaces(position.coords)
+            .then((places) => {
+                places.forEach((place) => {
+                    const desLatitude = place.location.lat;
+                    const desLongitude = place.location.lng;   
+
+                    // add place name
+                    const destinationEntity = document.createElement('a-link');
+                    destinationEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
+                    destinationEntity.setAttribute('title', place.name);
+                    destinationEntity.setAttribute('scale', '15 15 15');
+                    
+                    destinationEntity.addEventListener('loaded', () => {
+                        window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
+                    });
+                    console.log(destinationEntity)
+                    scene.appendChild(destinationEntity);
+                });
             })
-    })
-}
+    },
+        (err) => console.error('Error in retrieving position', err),
+        {
+            enableHighAccuracy: true,
+            maximumAge: 0,
+            timeout: 27000,
+        }
+    );
+};
