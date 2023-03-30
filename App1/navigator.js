@@ -146,9 +146,9 @@ window.onload = () => {
                     destinationEntity.setAttribute('title', place.name);
                     destinationEntity.setAttribute('scale', '15 15 15');
                     
-                    destinationEntity.addEventListener('loaded', () => {
-                        window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
-                    });
+                    // destinationEntity.addEventListener('loaded', () => {
+                    //     window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
+                    // });
                     console.log(destinationEntity)
                     scene.appendChild(destinationEntity);
                     
@@ -157,9 +157,9 @@ window.onload = () => {
                     arrowEntity.setAttribute('gps-entity-place', `latitude: ${position.coords.latitude + 0.001}; longitude: ${position.coords.longitude};`);
                     arrowEntity.setAttribute('geometry', 'primitive: cone;');
                     arrowEntity.setAttribute('material', 'color: red;');
-                    arrowEntity.setAttribute('scale', '10 10 10');
-                    arrowEntity.setAttribute('rotation', '100 100 50');
-                    arrowEntity.setAttribute('position', '0 -1 0');
+                    arrowEntity.setAttribute('scale', '10 10 20');
+                    arrowEntity.setAttribute('rotation', '0 0 50');
+                    arrowEntity.setAttribute('position', '0 0 -1');
                     arrowEntity.setAttribute('look-at', '[gps-camera]');
                     scene.appendChild(arrowEntity);
                 });
