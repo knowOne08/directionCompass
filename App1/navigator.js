@@ -230,9 +230,9 @@ window.onload = () => {
                     destinationEntity.setAttribute('title', place.name);
                     destinationEntity.setAttribute('scale', '15 15 15');
                     
-                    // destinationEntity.addEventListener('loaded', () => {
-                    //     window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
-                    // });
+                    destinationEntity.addEventListener('loaded', () => {
+                        window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
+                    });
                     console.log(destinationEntity)
                     scene.appendChild(destinationEntity);
                     
