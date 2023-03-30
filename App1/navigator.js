@@ -237,15 +237,15 @@ window.onload = () => {
                     scene.appendChild(destinationEntity);
                     
 
-                    const arrowEntity = document.createElement('a-entity');
-                    arrowEntity.setAttribute('gps-entity-place', `latitude: ${position.coords.latitude + 0.001}; longitude: ${position.coords.longitude};`);
-                    arrowEntity.setAttribute('geometry', 'primitive: cone;');
-                    arrowEntity.setAttribute('material', 'color: red;');
-                    arrowEntity.setAttribute('scale', '10 10 20');
-                    arrowEntity.setAttribute('rotation', '0 0 50');
-                    arrowEntity.setAttribute('position', '0 0 -1');
-                    // arrowEntity.setAttribute('look-at', '[gps-camera]');
-                    scene.appendChild(arrowEntity);
+                    // Attempt of making arrow through cone                    // const arrowEntity = document.createElement('a-entity');
+                    // arrowEntity.setAttribute('gps-entity-place', `latitude: ${position.coords.latitude + 0.001}; longitude: ${position.coords.longitude};`);
+                    // arrowEntity.setAttribute('geometry', 'primitive: cone;');
+                    // arrowEntity.setAttribute('material', 'color: red;');
+                    // arrowEntity.setAttribute('scale', '10 10 20');
+                    // arrowEntity.setAttribute('rotation', '0 0 50');
+                    // arrowEntity.setAttribute('position', '0 0 -1');
+                    // // arrowEntity.setAttribute('look-at', '[gps-camera]');
+                    // scene.appendChild(arrowEntity);
                 });
             })
     },
