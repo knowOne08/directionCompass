@@ -119,6 +119,8 @@ window.onload = () => {
     return navigator.geolocation.getCurrentPosition(function (position) {
 
         function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+
+            console.log(lat1, lon1, lat2, lon2)
             const R = 6371; // Radius of the earth in km
             const dLat = deg2rad(lat2-lat1); // deg2rad below
             const dLon = deg2rad(lon2-lon1); 
@@ -136,17 +138,18 @@ window.onload = () => {
             return deg * (Math.PI/180)
           }
 
+        alert(`You are ${getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude, 23.0560196454931, 72.66744606670677)} meters away from your destination. Keep your phone upright and scan around you to find your destination.`);   
         // than use it to load from remote APIs some places nearby
         loadPlaces(position.coords)
             .then((places) => {
                 places.forEach((place) => {
-                    const desLatitude = place.location.lat;
-                    const desLongitude = place.location.lng;   
+                    let desLatitude = place.location.lat;
+                    let desLongitude = place.location.lng;   
 
                     // add place name
-                    const destinationEntity = document.createElement('a-link');
+                    let destinationEntity = document.createElement('a-link');
                     destinationEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
-                    destinationEntity.setAttribute('title', place.name + " " + getDistanceFromLatLonInKm(position.coords.latitude, position.coords.longitude, desLatitude, desLongitude) + " m");
+                    destinationEntity.setAttribute('title', place.name);
                     destinationEntity.setAttribute('scale', '15 15 15');
                     
                     destinationEntity.addEventListener('loaded', () => {
