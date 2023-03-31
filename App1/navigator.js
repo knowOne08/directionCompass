@@ -226,7 +226,7 @@ window.onload = () => {
                     // console.log(desLatitude, desLongitude)
                     // add place name
                     const destinationEntity = document.createElement('a-link');
-                    // destinationEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
+                    destinationEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
                     destinationEntity.setAttribute('title', place.name);
                     destinationEntity.setAttribute('scale', '15 15 15');
                     
@@ -239,7 +239,7 @@ window.onload = () => {
 
                     // Attempt of making arrow through cone                    
                     const arrowEntity = document.createElement('a-entity');
-                    arrowEntity.setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude + 0.001};`);
+                    // arrowEntity.setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude + 0.001};`);
                     // arrowEntity.setAttribute('geometry', 'primitive: cone;');
 
                     // arrowEntity.setAttribute('material', 'color: red;');
