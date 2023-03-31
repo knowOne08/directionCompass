@@ -237,7 +237,8 @@ window.onload = () => {
                     scene.appendChild(destinationEntity);
                     
 
-                    // Attempt of making arrow through cone                    // const arrowEntity = document.createElement('a-entity');
+                    // Attempt of making arrow through cone                    
+                    const arrowEntity = document.createElement('a-entity');
                     arrowEntity.setAttribute('gps-entity-place', `latitude: ${position.coords.latitude + 0.002}; longitude: ${position.coords.longitude};`);
                     arrowEntity.setAttribute('geometry', 'primitive: cone;');
                     arrowEntity.setAttribute('material', 'color: red;');
