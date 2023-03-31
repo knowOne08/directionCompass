@@ -195,28 +195,25 @@ window.onload = () => {
                     alert(`You are ${distance} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
                     // console.log(desLatitude, desLongitude)
                     
-                    // // add place name
-                    // const destinationEntity = document.createElement('a-link');
-                    // destinationEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
-                    // destinationEntity.setAttribute('title', place.name);
-                    // destinationEntity.setAttribute('scale', '15 15 15');
+                    // add place name
+                    const destinationEntity = document.createElement('a-link');
+                    destinationEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
+                    destinationEntity.setAttribute('title', place.name);
+                    destinationEntity.setAttribute('scale', '15 15 15');
                     
-                    // destinationEntity.addEventListener('loaded', () => {
-                    //     window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
-                    // });
-                    // console.log(destinationEntity)
-                    // scene.appendChild(destinationEntity);
-                    
-                    
-                    // Attempt of making arrow through cone                    
-                    const arrowEntity = document.createElement('a-entity');
-                    arrowEntity.setAttribute('gps-entity-place', `latitude: 23.1058603; longitude: 72.585766;`);
-                    arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
-                    arrowEntity.setAttribute('scale', '0.5 0.5 0.5');
-                    arrowEntity.setAttribute('look-at', '[gps-camera]');
-                    arrowEntity.addEventListener('loaded', () => {
+                    destinationEntity.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     });
+                    console.log(destinationEntity)
+                    scene.appendChild(destinationEntity);
+                    
+
+                    // Attempt of making arrow through cone                    
+                    const arrowEntity = document.createElement('a-entity');
+                    arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
+                    arrowEntity.setAttribute('scale', '5 5 5');
+                    arrowEntity.setAttribute('look-at', '[gps-camera]');
+                    arrowEntity.setAttribute('fixed','true');
 
                     // calculate distance and bearing between user and destination
                     const lat1 = position.coords.latitude;
