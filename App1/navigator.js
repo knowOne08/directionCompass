@@ -192,7 +192,7 @@ window.onload = () => {
     const scene = document.querySelector('a-scene');
 
     // first get current user location
-    return navigator.geolocation.getCurrentPosition(function (position) {
+    return navigator.geolocation.watchPosition(function (position) {
 
         function getDistance(lat1, lng1, lat2, lng2) {
             const R = 6371; // Radius of the earth in km
@@ -248,7 +248,7 @@ window.onload = () => {
                     arrowEntity.setAttribute('rotation', '0 45 0');
                     arrowEntity.setAttribute('position', '2 -1 0');
                     arrowEntity.setAttribute('look-at', '[gps-camera]');
-                    arrowEntity.setAttribute('fixed','true')
+                    // arrowEntity.setAttribute('fixed','true')
                     arrowEntity.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     });
