@@ -159,6 +159,16 @@ function loadPlaces(position) {
 
 window.onload = () => {
     const scene = document.querySelector('a-scene');
+    const arrowEntity = document.createElement('a-entity'); // define arrow entity outside of the loadPlaces function
+    
+    function rotateArrow(position, destination) {
+        const arrowPos = arrowEntity.object3D.getWorldPosition(); // get the arrow's world position
+        const dx = destination.lng - position.longitude;
+        const dz = destination.lat - position.latitude;
+        const angle = Math.atan2(dz, dx);
+        arrowEntity.setAttribute('rotation', `0 ${THREE.Math.radToDeg(angle)} 0`); // rotate the arrow towards the destination
+        arrowEntity.setAttribute('position', `${arrowPos.x} 0 ${arrowPos.z}`); // set the arrow's y position to 0
+    }
 
     // first get current user location
     return navigator.geolocation.getCurrentPosition(function (position) {
@@ -175,25 +185,20 @@ window.onload = () => {
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
             const d = R * c; // Distance in km
             return Math.round(d*1000);
-          }
+        }
           
-          function deg2rad(deg) {
+        function deg2rad(deg) {
             return deg * (Math.PI/180)
-          }
+        }
           
-          
-
         // than use it to load from remote APIs some places nearby
         loadPlaces(position.coords)
             .then((places) => {
                 places.forEach((place) => {
-                    
-                    
                     const desLatitude = place.location.lat;
                     const desLongitude = place.location.lng;   
                     const distance = getDistance(position.coords.latitude, position.coords.longitude, desLatitude, desLongitude);
                     alert(`You are ${distance} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
-                    // console.log(desLatitude, desLongitude)
                     
                     // add place name
                     const destinationEntity = document.createElement('a-link');
@@ -204,29 +209,21 @@ window.onload = () => {
                     destinationEntity.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     });
-                    console.log(destinationEntity)
                     scene.appendChild(destinationEntity);
                     
-
-                    // Attempt of making arrow through cone                    
-                    const arrowEntity = document.createElement('a-entity');
+                    // Attempt of making arrow through cone
                     arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
                     arrowEntity.setAttribute('scale', '5 5 5');
-                    arrowEntity.setAttribute('look-at', '[gps-camera]');
-                    arrowEntity.setAttribute('fixed','true');
-
-                    // calculate distance and bearing between user and destination
-                    const lat1 = position.coords.latitude;
-                    const lon1 = position.coords.longitude;
-                    const lat2 = desLatitude;
-                    const lon2 = desLongitude;
-                    const dLat = deg2rad(lat2-lat1);
-                    const dLon = deg2rad(lon2-lon1);
-                    const bearing = Math.atan2(Math.sin(dLon)*Math.cos(deg2rad(lat2)), Math.cos(deg2rad(lat1))*Math.sin(deg2rad(lat2))-Math.sin(deg2rad(lat1))*Math.cos(deg2rad(lat2))*Math.cos(dLon));
-                    const bearingDeg = (bearing * 180 / Math.PI + 360) % 360;
-                    arrowEntity.setAttribute('rotation', `0 ${bearingDeg} 0`);
-                    arrowEntity.setAttribute('position', `0 0 ${distance}`);
+                    arrowEntity.setAttribute('look-at', `[gps-camera]`);
+                    arrowEntity.setAttribute('fixed', 'true');
                     scene.appendChild(arrowEntity);
+
+                    // Call rotateArrow function every 1000ms to update the arrow's rotation and position
+                    setInterval(() => {
+                        navigator.geolocation.getCurrentPosition(function (newPosition) {
+                            rotateArrow(newPosition.coords, { lat: desLatitude, lng: desLongitude });
+                        });
+                    }, 1000);
                 });
             });
     });
