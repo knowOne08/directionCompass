@@ -186,8 +186,10 @@ window.onload = () => {
         // update the arrow's text
         const textEntity = document.createElement('a-entity');
         textEntity.setAttribute('text', `value: ${direction}; align: center;`);
-        textEntity.setAttribute('position', '0 -0.2 0');
+        textEntity.setAttribute('position', '0 0.5 0'); // move text above arrow
+        textEntity.setAttribute('look-at', '[gps-camera]'); // make text face user
         arrowEntity.appendChild(textEntity);
+
     }
     
 
@@ -238,6 +240,7 @@ window.onload = () => {
                     arrowEntity.setAttribute('look-at', `[gps-camera]`);
                     arrowEntity.setAttribute('fixed', 'true');
                     arrowEntity.setAttribute('position', '0 0 -1');
+                    arrowEntity.setAttribute('style', 'position : fixed');
                     scene.appendChild(arrowEntity);
 
                     // Call rotateArrow function every 1000ms to update the arrow's rotation and position
