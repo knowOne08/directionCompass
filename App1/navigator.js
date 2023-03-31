@@ -244,7 +244,7 @@ window.onload = () => {
 
                     // arrowEntity.setAttribute('material', 'color: red;');
                     arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
-                    arrowEntity.setAttribute('scale', '10 10 10');
+                    arrowEntity.setAttribute('scale', '7 7 7');
                     arrowEntity.setAttribute('rotation', '0 45 0');
                     arrowEntity.setAttribute('position', '0 -1 0');
                     arrowEntity.setAttribute('look-at', '#camera');
