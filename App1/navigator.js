@@ -207,17 +207,17 @@ window.onload = () => {
                     // console.log(destinationEntity)
                     // scene.appendChild(destinationEntity);
                     
-
+                    
                     // Attempt of making arrow through cone                    
                     const arrowEntity = document.createElement('a-entity');
-                    arrowEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
+                    arrowEntity.setAttribute('gps-entity-place', `latitude: 23.1058603; longitude: 72.585766;`);
                     arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
                     arrowEntity.setAttribute('scale', '0.5 0.5 0.5');
                     arrowEntity.setAttribute('look-at', '[gps-camera]');
                     arrowEntity.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     });
-                    
+
                     // calculate distance and bearing between user and destination
                     const lat1 = position.coords.latitude;
                     const lon1 = position.coords.longitude;
