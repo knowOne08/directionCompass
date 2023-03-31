@@ -248,7 +248,7 @@ window.onload = () => {
                     // arrowEntity.setAttribute('rotation', '0 0 0');
                     arrowEntity.setAttribute('position', '20 20 30');
                     arrowEntity.setAttribute('look-at', '[gps-camera]');
-                    // arrowEntity.setAttribute('fixed','true')
+                    arrowEntity.setAttribute('fixed','true')
                     // arrowEntity.addEventListener('loaded', () => {
                     //     window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     // });
