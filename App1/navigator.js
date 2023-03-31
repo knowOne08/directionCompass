@@ -246,7 +246,7 @@ window.onload = () => {
                     arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
                     arrowEntity.setAttribute('scale', '7 7 7');
                     arrowEntity.setAttribute('rotation', '0 45 0');
-                    arrowEntity.setAttribute('position', '0 -1 0');
+                    arrowEntity.setAttribute('position', '0 1 0');
                     arrowEntity.setAttribute('look-at', '[gps-camera]');
                     // arrowEntity.setAttribute('fixed','true')
                     arrowEntity.addEventListener('loaded', () => {
