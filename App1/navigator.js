@@ -168,7 +168,28 @@ window.onload = () => {
         const angle = Math.atan2(dz, dx);
         arrowEntity.setAttribute('rotation', `0 ${THREE.Math.radToDeg(angle)} 0`); // rotate the arrow towards the destination
         arrowEntity.setAttribute('position', `${arrowPos.x} 0 ${arrowPos.z}`); // set the arrow's y position to 0
+    
+        // calculate the direction text
+        let direction = '';
+        const bearing = Math.atan2(Math.sin(dx)*Math.cos(destination.lat), Math.cos(position.latitude)*Math.sin(destination.lat) - Math.sin(position.latitude)*Math.cos(destination.lat)*Math.cos(dx));
+        const bearingDegrees = THREE.Math.radToDeg(bearing);
+        if (bearingDegrees >= -45 && bearingDegrees <= 45) {
+            direction = 'Right';
+        } else if (bearingDegrees > 45 && bearingDegrees <= 135) {
+            direction = 'Backward';
+        } else if (bearingDegrees > 135 || bearingDegrees <= -135) {
+            direction = 'Left';
+        } else {
+            direction = 'Forward';
+        }
+    
+        // update the arrow's text
+        const textEntity = document.createElement('a-entity');
+        textEntity.setAttribute('text', `value: ${direction}; align: center;`);
+        textEntity.setAttribute('position', '0 -0.2 0');
+        arrowEntity.appendChild(textEntity);
     }
+    
 
     // first get current user location
     return navigator.geolocation.getCurrentPosition(function (position) {
