@@ -6,7 +6,7 @@ const arrayIndex = urlParams.get('v1');
 function loadPlaces(position) {
     const method = 'static';
     // const method = 'api';
-    if(method === 'static') {
+    // if(method === 'static') {
         const CLG_PlACES = [
             [{
                 name: "LIBRARY",
@@ -122,69 +122,39 @@ function loadPlaces(position) {
             }],
         ]; 
 
-        const HOME_PlACES = [
-            [{
-                 name: "FireStation",
-                 location: {
-                     lat: 23.0560196454931,  // add here latitude if using static data
-                     lng: 72.66744606670677, // add here longitude if using static data
-                 }
-             }],
-            [{
-                 name: "Home",
-                 location: {
-                     lat: 23.056784314414482,  // add here latitude if using static data
-                     lng: 72.66345756966565, // add here longitude if using static data
-                 }
-             }],
-            [{
-                 name: "Divit Hills",
-                 location: {
-                     lat: 23.05760351001347,   // add here latitude if using static data
-                     lng: 72.66268710592351, // add here longitude if using static data
-                 }
-             }],
-            [{
-                 name: "Shiv Residency",
-                 location: {
-                     lat: 23.057774877427374,  // add here latitude if using static data
-                     lng: 72.66073728561422, // add here longitude if using static data
-                 }
-             }],
-         ];
          
          return Promise.resolve(CLG_PlACES[arrayIndex]);
-    }
-    else if(method === 'api') {
-        const params = {
-            radius: 300,    // search places not farther than this value (in meters)
-            clientId: '<your-client-id>',
-            clientSecret: '<your-client-secret>',
-            version: '20300101',    // foursquare versioning, required but unuseful for this demo
-        };
+    // }
+    // else if(method === 'api') {
+    //     const params = {
+    //         radius: 300,    // search places not farther than this value (in meters)
+    //         clientId: '<your-client-id>',
+    //         clientSecret: '<your-client-secret>',
+    //         version: '20300101',    // foursquare versioning, required but unuseful for this demo
+    //     };
     
-        // CORS Proxy to avoid CORS problems
-        const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+    //     // CORS Proxy to avoid CORS problems
+    //     const corsProxy = 'https://cors-anywhere.herokuapp.com/';
     
-        // Foursquare API (limit param: number of maximum places to fetch)
-        const endpoint = `${corsProxy}https://api.foursquare.com/v2/venues/search?intent=checkin
-            &ll=${position.latitude},${position.longitude}
-            &radius=${params.radius}
-            &client_id=${params.clientId}
-            &client_secret=${params.clientSecret}
-            &limit=30 
-            &v=${params.version}`;
-        return fetch(endpoint)
-            .then((res) => {
-                return res.json()
-                    .then((resp) => {
-                        return resp.response.venues;
-                    })
-            })
-            .catch((err) => {
-                console.error('Error with places API', err);
-            })
-    }
+    //     // Foursquare API (limit param: number of maximum places to fetch)
+    //     const endpoint = `${corsProxy}https://api.foursquare.com/v2/venues/search?intent=checkin
+    //         &ll=${position.latitude},${position.longitude}
+    //         &radius=${params.radius}
+    //         &client_id=${params.clientId}
+    //         &client_secret=${params.clientSecret}
+    //         &limit=30 
+    //         &v=${params.version}`;
+    //     return fetch(endpoint)
+    //         .then((res) => {
+    //             return res.json()
+    //                 .then((resp) => {
+    //                     return resp.response.venues;
+    //                 })
+    //         })
+    //         .catch((err) => {
+    //             console.error('Error with places API', err);
+    //         })
+    // }
 };
 
 
