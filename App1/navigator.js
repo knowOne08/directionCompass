@@ -223,19 +223,17 @@ window.onload = () => {
   
           // Attempt of making arrow through cone
           arrowEntity = document.createElement('a-entity');
-          arrowEntity.setAttribute('geometry', 'primitive: cone');
-          arrowEntity.setAttribute('material', 'color: blue');
-          arrowEntity.setAttribute('scale', '0.5 0.5 0.5');
-          arrowEntity.setAttribute('look-at', `[gps-camera]`);
-          arrowEntity.setAttribute('position', '0 0 -1');
+          arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
+          arrowEntity.setAttribute('scale', '5 5 5');
+          arrowEntity.setAttribute('look-at', '[gps-camera]');
+          arrowEntity.setAttribute('fixed', 'true');
           scene.appendChild(arrowEntity);
-  
+          
           destinationCoords = { lat: desLatitude, lng: desLongitude };
           rotateArrow(position.coords, destinationCoords);
   
           // Call rotateArrow function every 1000ms to update the arrow's rotation and position
-          setInterval(() =>
-  
+          setInterval(() =>  
                      {
                         navigator.geolocation.getCurrentPosition(function (newPosition) {
                             rotateArrow(newPosition.coords, { lat: desLatitude, lng: desLongitude });
