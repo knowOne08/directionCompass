@@ -157,7 +157,6 @@ function loadPlaces(position) {
     // }
 };
 
-
 window.onload = () => {
     const scene = document.querySelector('a-scene');
 
@@ -192,8 +191,10 @@ window.onload = () => {
                     
                     const desLatitude = place.location.lat;
                     const desLongitude = place.location.lng;   
-                    alert(`You are ${getDistance(position.coords.latitude, position.coords.longitude, desLatitude, desLongitude)} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
+                    const distance = getDistance(position.coords.latitude, position.coords.longitude, desLatitude, desLongitude);
+                    alert(`You are ${distance} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
                     // console.log(desLatitude, desLongitude)
+                    
                     // add place name
                     const destinationEntity = document.createElement('a-link');
                     destinationEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
@@ -209,30 +210,24 @@ window.onload = () => {
 
                     // Attempt of making arrow through cone                    
                     const arrowEntity = document.createElement('a-entity');
-                    // arrowEntity.setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude + 0.001};`);
-                    // arrowEntity.setAttribute('geometry', 'primitive: cone;');
-
-                    // arrowEntity.setAttribute('material', 'color: red;');
                     arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
                     arrowEntity.setAttribute('scale', '5 5 5');
-                    // arrowEntity.setAttribute('rotation', '0 0 0');
-                    arrowEntity.setAttribute('position', '0 5 0');
                     arrowEntity.setAttribute('look-at', '[gps-camera]');
-                    arrowEntity.setAttribute('fixed','true')
-                    // arrowEntity.addEventListener('loaded', () => {
-                    //     window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
-                    // });
+                    arrowEntity.setAttribute('fixed','true');
+
+                    // calculate distance and bearing between user and destination
+                    const lat1 = position.coords.latitude;
+                    const lon1 = position.coords.longitude;
+                    const lat2 = desLatitude;
+                    const lon2 = desLongitude;
+                    const dLat = deg2rad(lat2-lat1);
+                    const dLon = deg2rad(lon2-lon1);
+                    const bearing = Math.atan2(Math.sin(dLon)*Math.cos(deg2rad(lat2)), Math.cos(deg2rad(lat1))*Math.sin(deg2rad(lat2))-Math.sin(deg2rad(lat1))*Math.cos(deg2rad(lat2))*Math.cos(dLon));
+                    const bearingDeg = (bearing * 180 / Math.PI + 360) % 360;
+                    arrowEntity.setAttribute('rotation', `0 ${bearingDeg} 0`);
+                    arrowEntity.setAttribute('position', `0 0 ${distance}`);
                     scene.appendChild(arrowEntity);
-                    
-                    console.log(arrowEntity)
                 });
-            })
-    },
-        (err) => console.error('Error in retrieving position', err),
-        {
-            enableHighAccuracy: true,
-            maximumAge: 0,
-            timeout: 27000,
-        }
-    );
+            });
+    });
 };
