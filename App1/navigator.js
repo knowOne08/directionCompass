@@ -166,9 +166,17 @@ window.onload = () => {
         const dx = destination.lng - position.longitude;
         const dz = destination.lat - position.latitude;
         const angle = Math.atan2(dz, dx);
-        arrowEntity.setAttribute('rotation', `0 ${THREE.Math.radToDeg(angle)} 0`); // rotate the arrow towards the destination
+        const currentRotation = arrowEntity.getAttribute('rotation'); // get the current rotation of the arrow
+        const headRotation = {x: 0, y: THREE.Math.radToDeg(angle), z: 0}; // calculate the desired rotation of the arrow head
+        const rotationDiff = {
+            x: headRotation.x - currentRotation.x,
+            y: headRotation.y - currentRotation.y,
+            z: headRotation.z - currentRotation.z
+        }; // calculate the difference between the current rotation and the desired rotation
+        arrowEntity.setAttribute('rotation', `${currentRotation.x} ${currentRotation.y} ${currentRotation.z}`); // reset the rotation of the arrow
+        arrowEntity.querySelector('.arrow-head').setAttribute('rotation', `${rotationDiff.x} ${rotationDiff.y} ${rotationDiff.z}`); // rotate the arrow head towards the destination
         arrowEntity.setAttribute('position', `${arrowPos.x} 0 ${arrowPos.z}`); // set the arrow's y position to 0
-    
+        
         // calculate the direction text
         let direction = '';
         const bearing = Math.atan2(Math.sin(dx)*Math.cos(destination.lat), Math.cos(position.latitude)*Math.sin(destination.lat) - Math.sin(position.latitude)*Math.cos(destination.lat)*Math.cos(dx));
@@ -182,14 +190,13 @@ window.onload = () => {
         } else {
             direction = 'Forward';
         }
-    
+        
         // update the arrow's text
         const textEntity = document.createElement('a-entity');
         textEntity.setAttribute('text', `value: ${direction}; align: center;`);
         textEntity.setAttribute('position', '0 0.5 0'); // move text above arrow
         textEntity.setAttribute('look-at', '[gps-camera]'); // make text face user
         arrowEntity.appendChild(textEntity);
-
     }
     
 
