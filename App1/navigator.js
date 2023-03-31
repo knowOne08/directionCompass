@@ -240,12 +240,14 @@ window.onload = () => {
                     // Attempt of making arrow through cone                    
                     const arrowEntity = document.createElement('a-entity');
                     arrowEntity.setAttribute('gps-entity-place', `latitude: ${position.coords.latitude + 0.001}; longitude: ${position.coords.longitude};`);
-                    arrowEntity.setAttribute('geometry', 'primitive: cone;');
-                    arrowEntity.setAttribute('material', 'color: red;');
+                    // arrowEntity.setAttribute('geometry', 'primitive: cone;');
+
+                    // arrowEntity.setAttribute('material', 'color: red;');
+                    arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
                     arrowEntity.setAttribute('scale', '10 10 30');
                     // arrowEntity.setAttribute('rotation', '0 0 50');
                     arrowEntity.setAttribute('position', '0 0 0');
-                    arrowEntity.setAttribute('look-at', '[gps-camera]');
+                    arrowEntity.setAttribute('look-at', '#camera');
                     arrowEntity.setAttribute('fixed','true')
                     scene.appendChild(arrowEntity);
                     
