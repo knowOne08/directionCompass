@@ -244,9 +244,9 @@ window.onload = () => {
 
                     // arrowEntity.setAttribute('material', 'color: red;');
                     arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
-                    arrowEntity.setAttribute('scale', '7 7 7');
+                    arrowEntity.setAttribute('scale', '5 5 5');
                     // arrowEntity.setAttribute('rotation', '0 0 0');
-                    arrowEntity.setAttribute('position', '1 0 0');
+                    arrowEntity.setAttribute('position', '5 5 0');
                     arrowEntity.setAttribute('look-at', '[gps-camera]');
                     // arrowEntity.setAttribute('fixed','true')
                     // arrowEntity.addEventListener('loaded', () => {
