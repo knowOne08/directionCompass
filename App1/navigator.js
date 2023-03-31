@@ -216,7 +216,7 @@ window.onload = () => {
                     arrowEntity.setAttribute('scale', '2 2 2');
                     arrowEntity.setAttribute('look-at', `[gps-camera]`);
                     arrowEntity.setAttribute('fixed', 'true');
-                    arrowEntity.setAttribute('position', '0 1 0');
+                    arrowEntity.setAttribute('position', '1 1 0');
                     scene.appendChild(arrowEntity);
 
                     // Call rotateArrow function every 1000ms to update the arrow's rotation and position
