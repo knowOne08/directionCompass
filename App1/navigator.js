@@ -228,6 +228,8 @@ window.onload = () => {
           arrowEntity.setAttribute('look-at', '[gps-camera]');
           arrowEntity.setAttribute('fixed', 'true');
           scene.appendChild(arrowEntity);
+
+
           
           destinationCoords = { lat: desLatitude, lng: desLongitude };
           rotateArrow(position.coords, destinationCoords);
