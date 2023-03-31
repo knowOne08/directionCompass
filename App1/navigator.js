@@ -213,9 +213,10 @@ window.onload = () => {
                     
                     // Attempt of making arrow through cone
                     arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
-                    arrowEntity.setAttribute('scale', '5 5 5');
+                    arrowEntity.setAttribute('scale', '2 2 2');
                     arrowEntity.setAttribute('look-at', `[gps-camera]`);
                     arrowEntity.setAttribute('fixed', 'true');
+                    arrowEntity.setAttribute('position', '0 1 0');
                     scene.appendChild(arrowEntity);
 
                     // Call rotateArrow function every 1000ms to update the arrow's rotation and position
