@@ -239,7 +239,7 @@ window.onload = () => {
 
                     // Attempt of making arrow through cone                    
                     const arrowEntity = document.createElement('a-entity');
-                    arrowEntity.setAttribute('gps-entity-place', `latitude: ${position.coords.latitude + 0.001}; longitude: ${position.coords.longitude};`);
+                    arrowEntity.setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude + 0.001};`);
                     // arrowEntity.setAttribute('geometry', 'primitive: cone;');
 
                     // arrowEntity.setAttribute('material', 'color: red;');
