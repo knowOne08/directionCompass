@@ -153,7 +153,7 @@ function loadPlaces(position) {
              }],
          ];
          
-         return Promise.resolve(HOME_PlACES[arrayIndex]);
+         return Promise.resolve(CLG_PlACES[arrayIndex]);
     }
     else if(method === 'api') {
         const params = {
