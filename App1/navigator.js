@@ -136,6 +136,17 @@ window.onload = () => {
 
     // first get current user location
     return navigator.geolocation.getCurrentPosition(function (position) {
+        
+        function calculateRotation(userCoords, destinationCoords, alpha) {
+            const dLon = destinationCoords.longitude - userCoords.longitude;
+            const y = Math.sin(dLon) * Math.cos(destinationCoords.latitude);
+            const x = Math.cos(userCoords.latitude) * Math.sin(destinationCoords.latitude) - Math.sin(userCoords.latitude) * Math.cos(destinationCoords.latitude) * Math.cos(dLon);
+            let brng = Math.atan2(y, x);
+            brng = (brng * 180) / Math.PI;
+            brng = (brng + 360) % 360;
+            const rotation = (-alpha * 180) / Math.PI;
+            return brng - rotation - 45;
+        }
 
         function getDistance(lat1, lng1, lat2, lng2) {
             const R = 6371; // Radius of the earth in km
@@ -197,7 +208,7 @@ window.onload = () => {
                             const alpha = event.alpha;
                             if (alpha !== null) {
                                 const rotateDegrees = calculateRotation(position.coords, destinationCoords, alpha);
-                                arrowEntity.setAttribute('rotation', `0 ${rotateDegrees-60} 0`);
+                                arrowEntity.setAttribute('rotation', `0 ${rotateDegrees} 0`);
                             }
                         }
                     });                    
