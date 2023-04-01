@@ -1,7 +1,6 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const arrayIndex = urlParams.get('v1');
-let flag = true;
 // getting places from APIs
 function loadPlaces(position) {
     const method = 'static';
@@ -133,6 +132,7 @@ function loadPlaces(position) {
 window.onload = () => {
     const scene = document.querySelector('a-scene');
     let destinationCoords = null;
+    let flag = true;
 
     // first get current user location
     return navigator.geolocation.watchPosition(function (position) {
