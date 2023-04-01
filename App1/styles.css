@@ -1,7 +1,13 @@
 body{
 	overflow-y: hidden;	
-}
+	/* background-image: url(./assets/download.jpg); */
 
+}
+#start-button{
+	/* padding-bottom: 50px; */
+	margin-bottom: 70px;
+	margin-left: 10px;
+}
 .nav-container {
 	position: relative;
 	display: inline-block;
