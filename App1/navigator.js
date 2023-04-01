@@ -135,7 +135,7 @@ window.onload = () => {
     let flag = true;
 
     // first get current user location
-    return navigator.geolocation.watchPosition(function (position) {
+    return navigator.geolocation.getCurrentPosition(function (position) {
 
 
         function calculateRotation(userCoords, destinationCoords, alpha) {
@@ -175,10 +175,9 @@ window.onload = () => {
                     const desLatitude = place.location.lat;
                     const desLongitude = place.location.lng;   
                     destinationCoords = {latitude: desLatitude, longitude: desLongitude};
-                    if(flag){
-                        alert(`You are ${getDistance(position.coords.latitude, position.coords.longitude, desLatitude, desLongitude)} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
-                        flag = false;
-                    }
+
+                    alert(`You are ${getDistance(position.coords.latitude, position.coords.longitude, desLatitude, desLongitude)} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
+
                     // console.log(desLatitude, desLongitude)
                     // add place name
                     const destinationEntity = document.createElement('a-link');
