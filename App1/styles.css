@@ -5,8 +5,8 @@ body{
 }
 #start-button{
 	/* padding-bottom: 50px; */
-	margin-bottom: 70px;
-	margin-left: 10px;
+	margin: auto;
+	margin-bottom: 50px;
 }
 .nav-container {
 	position: relative;
