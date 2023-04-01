@@ -1,7 +1,7 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const arrayIndex = urlParams.get('v1');
-
+let flag = true;
 // getting places from APIs
 function loadPlaces(position) {
     const method = 'static';
@@ -149,7 +149,7 @@ window.onload = () => {
             return brng - rotation;
         }
 
-        function getDistance(lat1, lng1, lat2, lng2) {
+        function getDistance(lat1, lng1, lat2, lng2) { 
             const R = 6371; // Radius of the earth in km
             const dLat = deg2rad(lat2-lat1);  // deg2rad below
             const dLng = deg2rad(lng2-lng1);
@@ -175,14 +175,17 @@ window.onload = () => {
                     const desLatitude = place.location.lat;
                     const desLongitude = place.location.lng;   
                     destinationCoords = {latitude: desLatitude, longitude: desLongitude};
-                    alert(`You are ${getDistance(position.coords.latitude, position.coords.longitude, desLatitude, desLongitude)} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
+                    if(flag){
+                        alert(`You are ${getDistance(position.coords.latitude, position.coords.longitude, desLatitude, desLongitude)} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
+                        flag = false;
+                    }
                     // console.log(desLatitude, desLongitude)
                     // add place name
                     const destinationEntity = document.createElement('a-link');
                     destinationEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
                     destinationEntity.setAttribute('title', place.name);
                     // destinationEntity.setAttribute('style','color: blue');
-                    destinationEntity.setAttribute('title-color', 'blue');
+                    // destinationEntity.setAttribute('title-color', 'blue');
                     destinationEntity.setAttribute('scale', '15 15 15');
                     destinationEntity.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
