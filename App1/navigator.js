@@ -203,15 +203,17 @@ window.onload = () => {
                     scene.appendChild(arrowEntity);
                     console.log(arrowEntity)
 
-                    window.addEventListener('deviceorientation', (event) => {
-                        if (destinationCoords !== null) {
-                            const alpha = event.alpha;
-                            if (alpha !== null) {
-                                const rotateDegrees = calculateRotation(position.coords, destinationCoords, alpha);
-                                arrowEntity.setAttribute('rotation', `0 ${rotateDegrees} 0`);
+                    setInterval(() => {
+                        window.addEventListener('deviceorientation', (event) => {
+                            if (destinationCoords !== null) {
+                                const alpha = event.alpha;
+                                if (alpha !== null) {
+                                    const rotateDegrees = calculateRotation(position.coords, destinationCoords, alpha);
+                                    arrowEntity.setAttribute('rotation', `0 ${rotateDegrees} 0`);
+                                }
                             }
-                        }
-                    });                    
+                        });
+                    }, 1000);                    
                 });
             })
         },
