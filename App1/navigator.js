@@ -135,7 +135,7 @@ window.onload = () => {
     let destinationCoords = null;
 
     // first get current user location
-    return navigator.geolocation.getCurrentPosition(function (position) {
+    return navigator.geolocation.watchPosition(function (position) {
 
 
         function calculateRotation(userCoords, destinationCoords, alpha) {
