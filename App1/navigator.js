@@ -182,7 +182,7 @@ window.onload = () => {
                     destinationEntity.setAttribute('gps-entity-place', `latitude: ${desLatitude}; longitude: ${desLongitude};`);
                     destinationEntity.setAttribute('title', place.name);
                     destinationEntity.setAttribute('scale', '15 15 15');
-                    
+                    destinationEntity.setAttribute('color', 'blue');
                     destinationEntity.addEventListener('loaded', () => {
                         window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
                     });
