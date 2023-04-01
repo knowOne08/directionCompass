@@ -197,7 +197,7 @@ window.onload = () => {
                             const alpha = event.alpha;
                             if (alpha !== null) {
                                 const rotateDegrees = calculateRotation(position.coords, destinationCoords, alpha);
-                                arrowEntity.setAttribute('rotation', `0 ${rotateDegrees} 0`);
+                                arrowEntity.setAttribute('rotation', `0 ${rotateDegrees+45} 0`);
                             }
                         }
                     });                    
