@@ -136,7 +136,9 @@ window.onload = () => {
 
     // first get current user location
     return navigator.geolocation.getCurrentPosition(function (position) {
-        
+
+        const THREE = AFRAME.THREE;
+
         function calculateRotation(currentCoords, destinationCoords, alpha) {
             const q1 = new THREE.Quaternion();
             const q2 = new THREE.Quaternion();
