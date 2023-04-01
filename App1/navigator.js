@@ -132,6 +132,7 @@ function loadPlaces(position) {
 
 window.onload = () => {
     const scene = document.querySelector('a-scene');
+    let destinationCoords = null;
 
     // first get current user location
     return navigator.geolocation.getCurrentPosition(function (position) {
@@ -153,17 +154,15 @@ window.onload = () => {
           function deg2rad(deg) {
             return deg * (Math.PI/180)
           }
-          
-          
 
         // than use it to load from remote APIs some places nearby
         loadPlaces(position.coords)
             .then((places) => {
                 places.forEach((place) => {
                     
-                    
                     const desLatitude = place.location.lat;
                     const desLongitude = place.location.lng;   
+                    destinationCoords = {latitude: desLatitude, longitude: desLongitude};
                     alert(`You are ${getDistance(position.coords.latitude, position.coords.longitude, desLatitude, desLongitude)} meters away from your destination ${place.name}. Keep your phone upright and scan around you to find your destination.`);   
                     // console.log(desLatitude, desLongitude)
                     // add place name
@@ -180,23 +179,27 @@ window.onload = () => {
                     
                     // Attempt of making arrow through cone                    
                     const arrowEntity = document.createElement('a-entity');
-                    // arrowEntity.setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude + 0.001};`);
-                    // arrowEntity.setAttribute('geometry', 'primitive: cone;');
-                    
-                    // arrowEntity.setAttribute('material', 'color: red;');
-                    arrowEntity.setAttribute('gltf-model', './assets/arrow.gltf');
+                    arrowEntity.setAttribute('geometry', 'primitive: cone;');
+                    arrowEntity.setAttribute('material', 'color: red;');
                     arrowEntity.setAttribute('scale', '2 2 2');
-                    arrowEntity.setAttribute('rotation', '0 45 0');
                     arrowEntity.setAttribute('position', '0 -0.9 10');
                     arrowEntity.setAttribute('look-at', '[gps-camera]');
-                    arrowEntity.setAttribute('fixed','true')
-                    // arrowEntity.addEventListener('loaded', () => {
-                        //     window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
-                        // });
+                    arrowEntity.setAttribute('fixed', 'true')
+                    arrowEntity.addEventListener('loaded', () => {
+                        window.dispatchEvent(new CustomEvent('gps-entity-place-loaded'))
+                    });
                     scene.appendChild(arrowEntity);
                     console.log(arrowEntity)
 
-                    
+                    window.addEventListener('deviceorientation', (event) => {
+                        if (destinationCoords !== null) {
+                            const alpha = event.alpha;
+                            if (alpha !== null) {
+                                const rotateDegrees = calculateRotation(position.coords, destinationCoords, alpha);
+                                arrowEntity.setAttribute('rotation', `0 ${rotateDegrees} 0`);
+                            }
+                        }
+                    });                    
                 });
             })
         },
